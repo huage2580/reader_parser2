@@ -40,6 +40,10 @@ class HParser {
     return _parserHolder.ParseRuleRaw(tId, rule);
   }
 
+  int queryBatchSize(String bId){
+    return _parserHolder.QueryBatchResultSize(bId);
+  }
+
   List<String> parseRuleStringsForParent(String bId,String? rule,int index){
     if(rule == null || rule.isEmpty){
       return [];
