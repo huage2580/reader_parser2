@@ -48,7 +48,7 @@ class HParser {
     if(rule == null || rule.isEmpty){
       return [];
     }
-    return _parserHolder.ParseRuleStrForParent(tId, rule, index);
+    return _parserHolder.ParseRuleStrForParent(bId, rule, index);
   }
 
   String? parseRuleStringForParent(String bId,String? rule,int index){
