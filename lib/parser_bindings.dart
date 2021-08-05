@@ -267,6 +267,15 @@ class EVParser {
   _lookup<ffi.NativeFunction<_c_FreeStr>>('FreeStr');
   late final _dart_FreeStr _FreeStr =
   _FreeStr_ptr.asFunction<_dart_FreeStr>();
+
+  void FreeSlice(ffi.Pointer pointer){
+    return _FreeSlice(pointer);
+  }
+
+  late final _FreeSlice_ptr =
+  _lookup<ffi.NativeFunction<_c_FreeSlice>>('FreeSlice');
+  late final _dart_FreeSlice _FreeSlice =
+  _FreeSlice_ptr.asFunction<_dart_FreeSlice>();
 }
 
 class __crt_locale_data_public extends ffi.Struct {
@@ -530,3 +539,12 @@ typedef _c_FreeStr = ffi.Void Function(
 typedef _dart_FreeStr = void Function(
     ffi.Pointer pointer,
     );
+
+typedef _c_FreeSlice = ffi.Void Function(
+    ffi.Pointer pointer,
+    );
+
+typedef _dart_FreeSlice = void Function(
+    ffi.Pointer pointer,
+    );
+

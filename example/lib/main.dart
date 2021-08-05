@@ -32,13 +32,6 @@ class _MyAppState extends State<MyApp> {
     try {
       platformVersion =
           await ReaderParser2.platformVersion ?? 'Unknown platform version';
-      var s = HParser.parseReplaceRule("懂得都懂", "##懂##测试");
-      var p = HParser(DATA);
-      var test = p.parseRuleString("tag.h1.0@ownText");
-      print(test);
-      p.destory();
-
-      print(s);
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -62,7 +55,27 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Text('Running on: $_platformVersion\n'),
         ),
+        floatingActionButton: FloatingActionButton(child: Text("click"),onPressed: (){
+          parseTest();
+        },),
       ),
     );
+  }
+
+  void parseTest(){
+    var parser = HParser(DATA);
+    var r1 = parser.parseRuleString("tag.h1.0@ownText");
+    print(DateTime.now());
+    var bId = parser.parseRuleRaw("id.list@dd");
+    var bSize = parser.queryBatchSize(bId);
+    for(var i=0;i< bSize;i++){
+      var r2 = parser.parseRuleStringForParent(bId, "a@text", i);
+      var r3 = parser.parseRuleStringForParent(bId, "a@href", i);
+      print("${r2}->${r3}");
+    }
+    parser.destoryBatch(bId);
+    parser.destory();
+    print(r1);
+    print(DateTime.now());
   }
 }

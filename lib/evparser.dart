@@ -78,18 +78,28 @@ class EVParserHolder{
     _evParser.FreeStr(pointer);
   }
 
+  void _freeSlice(Pointer pointer){
+    _evParser.FreeSlice(pointer);
+  }
+
+
   List<String> toList(Pointer<Pointer<f2.Utf8>> p){
     List<String> result = [];
     var index = 0;
     while (p.elementAt(index).value.address != 0){
       var p1 = p.elementAt(index).value;
-      result.add(p1.toDartString());
+      try{
+        result.add(p1.toDartString());
+      } catch(e){
+        print(e);
+        break;
+      }
       index ++;
       // f2.malloc.free(p1);
-      _free(p1);
+      // _free(p1);
     }
     // f2.malloc.free(p);
-    _free(p);
+    _freeSlice(p);
     return result;
   }
 
