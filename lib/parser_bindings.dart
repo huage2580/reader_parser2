@@ -257,6 +257,16 @@ class EVParser {
       _lookup<ffi.NativeFunction<_c_EndTransaction>>('EndTransaction');
   late final _dart_EndTransaction _EndTransaction =
       _EndTransaction_ptr.asFunction<_dart_EndTransaction>();
+
+
+  void FreeStr(ffi.Pointer pointer){
+    return _FreeStr(pointer);
+  }
+
+  late final _FreeStr_ptr =
+  _lookup<ffi.NativeFunction<_c_FreeStr>>('FreeStr');
+  late final _dart_FreeStr _FreeStr =
+  _FreeStr_ptr.asFunction<_dart_FreeStr>();
 }
 
 class __crt_locale_data_public extends ffi.Struct {
@@ -512,3 +522,11 @@ typedef _c_EndTransaction = ffi.Void Function(
 typedef _dart_EndTransaction = void Function(
   ffi.Pointer<f2.Utf8> tId,
 );
+
+typedef _c_FreeStr = ffi.Void Function(
+    ffi.Pointer pointer,
+    );
+
+typedef _dart_FreeStr = void Function(
+    ffi.Pointer pointer,
+    );

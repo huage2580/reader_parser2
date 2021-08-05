@@ -23,35 +23,59 @@ class EVParserHolder{
   }
 
   String StartTransaction(String input){
-    var out = _evParser.StartTransaction(input.toNativeUtf8());
+    var ip = input.toNativeUtf8();
+    var out = _evParser.StartTransaction(ip);
     var outString = out.toDartString();
-    // f2.malloc.free(out);
+    f2.malloc.free(ip);
+    _free(out);
     return outString;
   }
 
   String ParseRuleRaw(String tId,String rule){
-    var out = _evParser.ParseRuleRaw(tId.toNativeUtf8(), rule.toNativeUtf8());
+    var tp = tId.toNativeUtf8();
+    var rp = rule.toNativeUtf8();
+    var out = _evParser.ParseRuleRaw(tp, rp);
     var outString = out.toDartString();
     // f2.malloc.free(out);
+    f2.malloc.free(tp);
+    f2.malloc.free(rp);
+    _free(out);
     return outString;
   }
 
   List<String> ParseRuleStr(String tId,String rule){
-    var out = _evParser.ParseRuleStr(tId.toNativeUtf8(), rule.toNativeUtf8());
+    var tp = tId.toNativeUtf8();
+    var rp = rule.toNativeUtf8();
+    var out = _evParser.ParseRuleStr(tp, rp);
+    f2.malloc.free(tp);
+    f2.malloc.free(rp);
     return toList(out);
   }
 
   List<String> ParseRuleStrForParent(String tId,String rule,int index){
-    var out = _evParser.ParseRuleStrForParent(tId.toNativeUtf8(), rule.toNativeUtf8(),index);
+    var tp = tId.toNativeUtf8();
+    var rp = rule.toNativeUtf8();
+    var out = _evParser.ParseRuleStrForParent(tp,rp,index);
+    f2.malloc.free(tp);
+    f2.malloc.free(rp);
     return toList(out);
   }
 
   int QueryBatchResultSize(String tId){
-    return _evParser.QueryBatchResultSize(tId.toNativeUtf8());
+    var tp = tId.toNativeUtf8();
+    var out = _evParser.QueryBatchResultSize(tp);
+    f2.malloc.free(tp);
+    return out;
   }
 
   void EndTransaction(String tId){
-    _evParser.EndTransaction(tId.toNativeUtf8());
+    var tp = tId.toNativeUtf8();
+    _evParser.EndTransaction(tp);
+    f2.malloc.free(tp);
+  }
+
+  void _free(Pointer pointer){
+    _evParser.FreeStr(pointer);
   }
 
   List<String> toList(Pointer<Pointer<f2.Utf8>> p){
@@ -62,8 +86,10 @@ class EVParserHolder{
       result.add(p1.toDartString());
       index ++;
       // f2.malloc.free(p1);
+      _free(p1);
     }
     // f2.malloc.free(p);
+    _free(p);
     return result;
   }
 
