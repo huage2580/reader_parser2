@@ -9,7 +9,7 @@ import 'package:reader_parser2/regexp_rule.dart';
 ///
 
 class HParser {
-  static const VERSION = "v20210806_1735";
+  static const VERSION = "v20210806_1820";
 
   late String _htmlString;
   late EVParserHolder _parserHolder;
