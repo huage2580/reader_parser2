@@ -63,19 +63,25 @@ class _MyAppState extends State<MyApp> {
   }
 
   void parseTest(){
-    var parser = HParser(DATA);
-    var r1 = parser.parseRuleString("tag.h1.0@ownText");
-    print(DateTime.now());
-    var bId = parser.parseRuleRaw("id.list@dd");
-    var bSize = parser.queryBatchSize(bId);
-    for(var i=0;i< bSize;i++){
-      var r2 = parser.parseRuleStringForParent(bId, "a@text", i);
-      var r3 = parser.parseRuleStringForParent(bId, "a@href", i);
-      print("${r2}->${r3}");
+    for(var j = 0;j<99;j++){
+      var parser = HParser(DATA);
+      for(var i=0;i<99;i++){
+        var r1 = parser.parseRuleString("tag.h1.0@ownText");
+        print(r1);
+      }
+      print(DateTime.now());
+      var bId = parser.parseRuleRaw("id.list@dd");
+      var bSize = parser.queryBatchSize(bId);
+      for(var i=0;i< bSize;i++){
+        var r2 = parser.parseRuleStringForParent(bId, "a@text", i);
+        var r3 = parser.parseRuleStringForParent(bId, "a@href", i);
+        print("1:${r2}->${r3}");
+      }
+      parser.destoryBatch(bId);
+      parser.destory();
+      print(DateTime.now());
     }
-    parser.destoryBatch(bId);
-    parser.destory();
-    print(r1);
-    print(DateTime.now());
+
+
   }
 }
