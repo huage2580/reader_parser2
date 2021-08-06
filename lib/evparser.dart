@@ -2,6 +2,7 @@ import 'dart:ffi';
 import 'dart:io';
 import 'parser_bindings.dart';
 import 'package:ffi/ffi.dart' as f2;
+import 'dart:developer' as developer;
 
 class EVParserHolder{
   static final DynamicLibrary _dylib = Platform.environment['FLUTTER_TEST'] == 'true'
@@ -91,7 +92,7 @@ class EVParserHolder{
       try{
         result.add(p1.toDartString());
       } catch(e){
-        print(e);
+        developer.log("parser cover string error:$e",stackTrace: StackTrace.current);
         break;
       }
       index ++;
