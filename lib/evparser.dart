@@ -86,6 +86,9 @@ class EVParserHolder{
 
   List<String> toList(Pointer<Pointer<f2.Utf8>> p){
     List<String> result = [];
+    if(p.address == 0){
+      return result;
+    }
     var index = 0;
     while (p.elementAt(index).value.address != 0){
       var p1 = p.elementAt(index).value;
