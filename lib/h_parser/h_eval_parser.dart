@@ -8,10 +8,13 @@ class HEvalParser {
   HEvalParser(this.context);
 
   dynamic _eval(String expression) {
-    Expression exp = Expression.parse(expression);
+    var input = expression.replaceAll("\"", "^");
+    Expression exp = Expression.parse(input);
     // Evaluate expression
     final evaluator = const ExpressionEvaluator();
-    return evaluator.eval(exp, context);
+    var output = evaluator.eval(exp, context).toString();
+    output = output.replaceAll("^", "\"");
+    return output;
   }
 
   String parse(String? input) {
