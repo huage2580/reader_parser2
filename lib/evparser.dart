@@ -14,7 +14,7 @@ class EVParserHolder{
       : (Platform.isWindows
       ? DynamicLibrary.open('evparser.dll')
       : Platform.isAndroid
-      ? DynamicLibrary.open('evparser.so')
+      ? DynamicLibrary.open('libevparser.so')
       : DynamicLibrary.process());
 
   late EVParser _evParser;
